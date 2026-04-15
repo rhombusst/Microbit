@@ -1,0 +1,6 @@
+basic.showIcon(IconNames.Heart)
+
+input.onButtonPressed(Button.A, function () {
+    serial.writeLine("start")
+    basic.showIcon(IconNames.Happy)
+})
