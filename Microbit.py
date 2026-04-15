@@ -1,23 +1,27 @@
 import os
+import webbrowser
 from tkinter import *
 from tkinter import simpledialog, messagebox
 
 def open_project():
-    # Ask for project name
     project_name = simpledialog.askstring("Project Name", "Enter your project name:")
 
     if project_name:
-        # Optional: rename/copy HEX file with project name
         new_file = f"{project_name}.hex"
 
         try:
-            # Copy template to new file
+            # Copy template HEX (with extensions)
             with open("START_ROBOT.hex", "rb") as src:
                 with open(new_file, "wb") as dst:
                     dst.write(src.read())
 
-            # Open the new project
-            os.startfile(new_file)
+            # Open MakeCode in browser
+            webbrowser.open("https://makecode.microbit.org")
+
+            messagebox.showinfo(
+                "Project Ready",
+                f"{new_file} created!\n\nNow:\nImport → Import File → Select your file\n\nAll extensions will load automatically ✅"
+            )
 
         except Exception as e:
             messagebox.showerror("Error", str(e))
@@ -28,7 +32,7 @@ def open_project():
 root = Tk()
 root.title("Robot Lab")
 
-btn = Button(root, text="Start Robot Project", command=open_project, height=2, width=25)
+btn = Button(root, text="Start Robot Project", command=open_project, height=2, width=30)
 btn.pack(pady=30)
 
 root.mainloop()
